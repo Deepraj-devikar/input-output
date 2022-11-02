@@ -42,6 +42,17 @@ public class EmployeePayrollService {
 		}
 	}
 	
+	public long countEntries(InputOutputService inputOutputService) {
+		switch (inputOutputService) {
+		case CONSOLE_IO:
+			return employeePayrollData.size();
+		case FILE_IO:
+			return new EmployeePayrollFIleIOService().countEntries();
+		default:
+			return 0;	
+		}
+	}
+	
 	public void readEmployeePayrollData(Scanner scanner) {
 		EmployeePayroll EmployeePayroll = new EmployeePayroll();
 		System.out.print("Enter employee ID : ");

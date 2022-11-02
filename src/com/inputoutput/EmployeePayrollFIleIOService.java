@@ -42,10 +42,25 @@ public class EmployeePayrollFIleIOService {
 		Path filePath = Paths.get(PAY_ROLL_FILE_NAME);
 		if(Files.exists(filePath)) {
 			try {
-				Files.lines(filePath).forEach(System.out::println);
+				Files.lines(filePath)
+				.forEach(System.out::println);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
 		}
+	}
+	
+	public long countEntries() {
+		long entriesCounting = 0;
+		Path filePath = Paths.get(PAY_ROLL_FILE_NAME);
+		if(Files.exists(filePath)) {
+			try {
+				entriesCounting = Files.lines(filePath)
+						.count();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		}
+		return entriesCounting/3;
 	}
 }
