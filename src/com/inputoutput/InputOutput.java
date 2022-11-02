@@ -14,6 +14,7 @@ public class InputOutput {
 		employeePayrollService.writeEmployeePayrollData(
 				EmployeePayrollService.InputOutputService.FILE_IO, 
 				employeePayrollInformationFile);
+		employeePayrollService.printData(EmployeePayrollService.InputOutputService.FILE_IO);
 	}
 
 }

@@ -33,7 +33,17 @@ public class EmployeePayrollFIleIOService {
 				Files.write(filePath, employeePayrollInformation.toString().getBytes());
 				System.out.println(employeePayrollData.size()+" employees payroll information written to "+filePath.toString()+" file");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	}
+	
+	public void printData() {
+		Path filePath = Paths.get(PAY_ROLL_FILE_NAME);
+		if(Files.exists(filePath)) {
+			try {
+				Files.lines(filePath).forEach(System.out::println);
+			} catch (IOException e) {
 				e.printStackTrace();
 			}	
 		}

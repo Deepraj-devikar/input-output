@@ -1,9 +1,5 @@
 package com.inputoutput;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -30,6 +26,19 @@ public class EmployeePayrollService {
 			break;
 		default:
 			break;
+		}
+	}
+	
+	public void printData(InputOutputService inputOutputService) {
+		switch (inputOutputService) {
+		case CONSOLE_IO:
+			writeEmployeePayrollData();
+			break;
+		case FILE_IO:
+			new EmployeePayrollFIleIOService().printData();
+			break;
+		default:
+			break;	
 		}
 	}
 	
