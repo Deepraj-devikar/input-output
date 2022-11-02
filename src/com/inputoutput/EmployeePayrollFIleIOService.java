@@ -63,4 +63,54 @@ public class EmployeePayrollFIleIOService {
 		}
 		return entriesCounting/3;
 	}
+
+	public void readData() {
+		Path filePath = Paths.get(PAY_ROLL_FILE_NAME);
+		ArrayList<String> employeeIDs = new ArrayList<String>();
+		ArrayList<String> employeeNames = new ArrayList<String>();
+		ArrayList<String> employeeSalaries = new ArrayList<String>();
+		String employeeIDIdentifier = "Employee ID";
+		String employeeNameIdentifier = "Employee Name";
+		String employeeSalaryIdentifier = "Employee Salary";
+		if(Files.exists(filePath)) {
+			try {
+				Files.lines(filePath)
+				.forEach(line -> {
+					if(line.startsWith(employeeIDIdentifier)) {
+						employeeIDs.add(
+								line.split(employeeIDIdentifier+" : ")[1].trim()
+								);
+					} else if(line.startsWith(employeeNameIdentifier)) {
+						employeeNames.add(
+								line.split(employeeNameIdentifier+" : ")[1].trim()
+								);
+					} else if(line.startsWith(employeeSalaryIdentifier)) {
+						employeeSalaries.add(
+								line.split(employeeSalaryIdentifier+" : ")[1].trim()
+								);
+					}
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		}
+		ArrayList<EmployeePayroll> employeePayrollData = new ArrayList<EmployeePayroll>();
+		long minimumData = employeeIDs.size();
+		if(minimumData > employeeNames.size()) {
+			minimumData = employeeNames.size();
+		}
+		if(minimumData > employeeSalaries.size()) {
+			minimumData = employeeSalaries.size();
+		}
+		for(int i = 0; i < minimumData; i++) {
+			EmployeePayroll tempEmployeePayrollData = new EmployeePayroll();
+			tempEmployeePayrollData.setEmployeeID(Integer.parseInt(employeeIDs.get(i)));
+			tempEmployeePayrollData.setEmployeeName(employeeNames.get(i));
+			tempEmployeePayrollData.setSalary(Float.parseFloat(employeeSalaries.get(i)));
+			employeePayrollData.add(tempEmployeePayrollData);
+		}
+		
+		System.out.println("data found in "+filePath.toString()+" file : ");
+		System.out.println(employeePayrollData);
+	}
 }

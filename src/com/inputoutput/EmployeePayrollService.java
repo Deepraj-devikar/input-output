@@ -15,8 +15,21 @@ public class EmployeePayrollService {
 	public EmployeePayrollService(ArrayList<EmployeePayroll> employeePayrollData) {
 		this.employeePayrollData = employeePayrollData;
 	}
+	
+	public void readEmployeePayrollData(InputOutputService inputOutputService) {
+		switch (inputOutputService) {
+		case CONSOLE_IO:
+			readEmployeePayrollData();
+			break;
+		case FILE_IO:
+			new EmployeePayrollFIleIOService().readData();
+			break;
+		default:
+			break;
+		}
+	}
 
-	public void writeEmployeePayrollData(InputOutputService inputOutputService, Object source) {
+	public void writeEmployeePayrollData(InputOutputService inputOutputService) {
 		switch (inputOutputService) {
 		case CONSOLE_IO:
 			writeEmployeePayrollData();
@@ -53,7 +66,8 @@ public class EmployeePayrollService {
 		}
 	}
 	
-	public void readEmployeePayrollData(Scanner scanner) {
+	public void readEmployeePayrollData() {
+		Scanner scanner = new Scanner(System.in);
 		EmployeePayroll EmployeePayroll = new EmployeePayroll();
 		System.out.print("Enter employee ID : ");
 		EmployeePayroll.setEmployeeID(readNumber(scanner));
