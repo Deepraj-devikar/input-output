@@ -1,6 +1,6 @@
 package com.inputoutput;
 
-public class EmployeePayrolll {
+public class EmployeePayroll {
 	private int employeeID;
 	private String employeeName;
 	private float salary;

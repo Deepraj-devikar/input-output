@@ -8,17 +8,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import org.junit.Assert;
-
 public class EmployeePayrollService {
 	public enum InputOutputService {CONSOLE_IO, FILE_IO, DATABASE_IO, REST_IO};	
-	private ArrayList<EmployeePayrolll> employeePayrollData;
+	private ArrayList<EmployeePayroll> employeePayrollData;
 	
 	public EmployeePayrollService() {
-		employeePayrollData = new ArrayList<EmployeePayrolll>();
+		employeePayrollData = new ArrayList<EmployeePayroll>();
 	}
 	
-	public EmployeePayrollService(ArrayList<EmployeePayrolll> employeePayrollData) {
+	public EmployeePayrollService(ArrayList<EmployeePayroll> employeePayrollData) {
 		this.employeePayrollData = employeePayrollData;
 	}
 
@@ -28,19 +26,7 @@ public class EmployeePayrollService {
 			writeEmployeePayrollData();
 			break;
 		case FILE_IO:
-			if(source instanceof String) {
-				Path filePath = Paths.get((String) source);
-				if(!Files.exists(filePath)) {
-					try {
-						Files.createFile(filePath);
-						writeEmployeePayrollData(filePath);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					writeEmployeePayrollData(filePath);
-				}
-			}
+			new EmployeePayrollFIleIOService().writeData(employeePayrollData);
 			break;
 		default:
 			break;
@@ -48,14 +34,14 @@ public class EmployeePayrollService {
 	}
 	
 	public void readEmployeePayrollData(Scanner scanner) {
-		EmployeePayrolll employeePayrolll = new EmployeePayrolll();
+		EmployeePayroll EmployeePayroll = new EmployeePayroll();
 		System.out.print("Enter employee ID : ");
-		employeePayrolll.setEmployeeID(readNumber(scanner));
+		EmployeePayroll.setEmployeeID(readNumber(scanner));
 		System.out.print("Enter employee name : ");
-		employeePayrolll.setEmployeeName(scanner.nextLine());
+		EmployeePayroll.setEmployeeName(scanner.nextLine());
 		System.out.print("Enter employee salary : ");
-		employeePayrolll.setSalary(readFloat(scanner));
-		employeePayrollData.add(employeePayrolll);
+		EmployeePayroll.setSalary(readFloat(scanner));
+		employeePayrollData.add(EmployeePayroll);
 	}
 
 	private float readFloat(Scanner scanner) {
@@ -90,20 +76,6 @@ public class EmployeePayrollService {
 
 	public void writeEmployeePayrollData() {
 		System.out.println("\nWriting Employee payroll roaster to console\n"+employeePayrollData);
-	}
-	
-	public void writeEmployeePayrollData(Path filePath) {
-		StringBuffer employeePayrollInformation = new StringBuffer();
-		employeePayrollData.forEach(currentEmployeePayrollInformation -> {
-			employeePayrollInformation.append(currentEmployeePayrollInformation.toString().concat("\n"));
-		});
-		try {
-			Files.write(filePath, employeePayrollInformation.toString().getBytes());
-			System.out.println(employeePayrollData.size()+" employees payroll information written to "+filePath.toString()+" file");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }
