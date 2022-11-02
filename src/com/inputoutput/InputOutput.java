@@ -10,6 +10,10 @@ public class InputOutput {
 		Scanner scanner = new Scanner(System.in);
 		employeePayrollService.readEmployeePayrollData(scanner);
 		employeePayrollService.writeEmployeePayrollData();
+		String employeePayrollInformationFile = "E:\\bridgelabz\\practice\\nio_directory\\employee-payroll-information.txt";
+		employeePayrollService.writeEmployeePayrollData(
+				EmployeePayrollService.InputOutputService.FILE_IO, 
+				employeePayrollInformationFile);
 	}
 
 }
