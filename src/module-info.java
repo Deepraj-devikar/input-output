@@ -1,0 +1,3 @@
+module InputOutput {
+	requires junit;
+}
